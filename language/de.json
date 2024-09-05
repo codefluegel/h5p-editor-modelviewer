@@ -1,0 +1,26 @@
+{
+  "libraryStrings": {
+    "noModelsTitle": "Kein Modell",
+    "closeModelSelector": "Die Szenenauswahl schließen",
+    "cancel": "Abbrechen",
+    "confirm": "Bestätigen",
+    "remove": "Entfernen",
+    "done": "Fertig",
+    "edit": "Bearbeiten",
+    "delete": "Löschen",
+    "or": "oder",
+    "Model": "Model",
+    "loading": "Lade",
+    "newModel": "Neues Model",
+    "currentModel": "Aktuelles Model",
+    "createModelError": "Bitte erstelle ein neues Model zum Fortfahren",
+    "pickAnExistingModel": "Wähle eine existierendes Model, die angesprungen werden soll",
+    "selectAModelError": "Bitte wähle ein Model",
+    "setCameraStartTooltip": "Setze den aktuellen Kamerawinkel als Startpunkt für dieses Model",
+    "deleteInteractionTitle": "Lösche Interaktion",
+    "deleteInteractionText": "Bist du sicher, dass dieses Model gelöscht werden soll?",
+    "deleteModelTitle": "Lösche Model",
+    "deleteModelText": "Bist du sicher, dass du dieses Model löschen möchtest?",
+    "deleteModelTextWithObjects": "Wenn dieses Model gelöscht wird, werden auch alle Interaktionen in dem Model gelöscht. Dasselbe gilt für Hotspots, die auf das Model zeigen. Bist du sicher, dass du dieses Model löschen möchtest?"
+  }
+}
