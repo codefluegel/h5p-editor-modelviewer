@@ -30,6 +30,7 @@
     "deleteInteractionText": "Are you sure you wish to delete this interaction?",
     "deleteModelTitle": "Deleting Model",
     "deleteModelText": "Are you sure you wish to delete this Model?",
-    "deleteModelTextWithObjects": "Deleting this Model will also delete all interactions within the Model and any navigational hotspots pointing to this Model. Are you sure you wish to delete this Model?"
+    "deleteModelTextWithObjects": "Deleting this Model will also delete all interactions within the Model and any navigational hotspots pointing to this Model. Are you sure you wish to delete this Model?",
+    "clickModel": "Try click ON the model"
   }
 }

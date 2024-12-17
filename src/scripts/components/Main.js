@@ -1,13 +1,15 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import '@components/Main.scss';
-import ToolBar from '@components/Toolbar/Toolbar';
-import ModelViewer from '@components/ModelViewer/ModelViewer';
-import InteractionsBar from '@components/InteractionsBar/InteractionsBar.js';
 import InteractionEditor, {
   InteractionEditingType,
 } from '@components/EditingDialog/InteractionEditor.js';
+import InteractionsBar from '@components/InteractionsBar/InteractionsBar.js';
+import '@components/Main.scss';
+import ModelViewer from '@components/ModelViewer/ModelViewer';
+import ToolBar from '@components/Toolbar/Toolbar';
 import { H5PContext } from '@context/H5PContext.js';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { getSource } from '../context/H5PContext';
 
 export default class Main extends React.Component {
@@ -64,19 +66,30 @@ export default class Main extends React.Component {
       event.clientX,
       event.clientY
     );
-
     // check if listening for clicks
-    let editingInteraction = InteractionEditingType.NOT_EDITING;
-    if (this.state.activeElement) {
-      editingInteraction = InteractionEditingType.NEW_INTERACTION;
-    } else {
-      editingInteraction = InteractionEditingType.EDITING;
+    if (clickedPoint) {
+      let editingInteraction = InteractionEditingType.NOT_EDITING;
+      if (this.state.activeElement) {
+        editingInteraction = InteractionEditingType.NEW_INTERACTION;
+      } else {
+        editingInteraction = InteractionEditingType.EDITING;
+      }
+      if (this.state.editingLibrary) {
+        this.setState({
+          currentClickPosition: clickedPoint,
+          editingInteraction,
+        });
+      }
     }
-    if (this.state.editingLibrary) {
-      this.setState({
-        currentClickPosition: clickedPoint,
-        editingInteraction,
+    if (!clickedPoint && this.state.activeElement) {
+      toast.error(this.context.t('clickModel'), {
+        position: 'bottom-right',
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        progress: undefined,
       });
+      return;
     }
   };
 
@@ -195,6 +208,14 @@ export default class Main extends React.Component {
               newInteractionPosition={this.state.currentClickPosition}
             />
           )}
+          <ToastContainer
+            position='bottom-right'
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+          />
         </div>
       </div>
     );
