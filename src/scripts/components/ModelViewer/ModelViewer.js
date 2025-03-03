@@ -1,4 +1,3 @@
-import '@google/model-viewer';
 import React from 'react';
 
 const ModelViewer = (props) => {

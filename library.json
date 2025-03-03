@@ -26,6 +26,11 @@
       "patchVersion": 6
     },
     {
+      "machineName": "H5P.ModelViewer",
+      "majorVersion": 1,
+      "minorVersion": 7
+    },
+    {
       "machineName": "FontAwesome",
       "majorVersion": 4,
       "minorVersion": 5

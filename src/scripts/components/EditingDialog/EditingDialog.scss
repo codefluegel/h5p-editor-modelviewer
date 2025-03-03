@@ -12,11 +12,16 @@
   background: white;
   position: absolute;
   left: 50%;
-  top: 4em;
+  top: 5vh; /* Position dynamically without hardcoded px values */
   transform: translateX(-50%);
-  width: calc(100% - 3em);
+  width: 90vw; /* Take up most of the viewport width */
+  max-width: 80%; /* Prevent it from being too large */
+  height: 85vh; /* Slightly smaller than full viewport height */
+  max-height: 85%; /* Maintain proportionality */
   display: flex;
   flex-direction: column;
+  border-radius: 0.5em; /* Responsive rounded corners */
+  box-shadow: 0px 0.25em 0.5em rgba(0, 0, 0, 0.2); /* Soft shadow */
 }
 
 .h5peditor-semi-fullscreen .h5p-editing-dialog {

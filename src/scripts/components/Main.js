@@ -33,7 +33,6 @@ export default class Main extends React.Component {
     const modelViewer = document.getElementById(
       this.context.parent.params.subContentId || 'model-viewer'
     );
-    console.log(this.state.interactions);
 
     if (!modelViewer) {
       return;
@@ -42,7 +41,7 @@ export default class Main extends React.Component {
 
     const handleLoad = () => {
       this.setState({
-        interactions: this.state.interactions,
+        interactions: this.context.params.interactions,
         modelViewerInstance: modelViewer,
         animations: modelViewer.availableAnimations,
       });

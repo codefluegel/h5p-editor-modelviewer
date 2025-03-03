@@ -30,12 +30,10 @@
   },
   "dependencies": {
     "@babel/plugin-transform-runtime": "^7.24.7",
-    "@google/model-viewer": "^4.0.0",
     "prop-types": "^15.8.1",
     "react": "19.0.0",
     "react-dom": "19.0.0",
-    "react-toastify": "^11.0.0",
-    "three": "^0.169.0"
+    "react-toastify": "^11.0.0"
   },
   "keywords": [],
   "author": "CodeFluegel",
