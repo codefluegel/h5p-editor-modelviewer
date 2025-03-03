@@ -10,7 +10,7 @@
     "delete": "Löschen",
     "or": "oder",
     "Model": "Model",
-    "loading": "Lade",
+    "loading": "Lade...",
     "newModel": "Neues Model",
     "currentModel": "Aktuelles Model",
     "createModelError": "Bitte erstelle ein neues Model zum Fortfahren",

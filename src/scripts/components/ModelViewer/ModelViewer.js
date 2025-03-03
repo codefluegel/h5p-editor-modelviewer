@@ -1,4 +1,4 @@
-// component to render hotspots from main a functional component
+import '@google/model-viewer';
 import React from 'react';
 
 const ModelViewer = (props) => {
@@ -10,11 +10,10 @@ const ModelViewer = (props) => {
 
   return (
     <model-viewer
+      style={{ width: '100%', height: '100%' }}
       id={id}
       onClick={handleClick}
-      style={{ width: '100%', height: '100%' }}
       src={modelPath}
-      alt='A 3D model of an astronaut'
       auto-rotate
       camera-controls
     >
@@ -31,7 +30,7 @@ const ModelViewer = (props) => {
               onClick={() => openModalByType(hotspot, index)}
             >
               <span className='hotspot-label' onClick={() => openModalByType(hotspot, index)}>
-                {`${index + 1}. ${hotspot.labelText}`}{' '}
+                {`${index + 1}. ${hotspot.labelText}`}
               </span>
             </div>
           )

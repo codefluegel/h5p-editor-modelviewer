@@ -1,15 +1,15 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import EditingDialog from './EditingDialog';
+import '@components/EditingDialog/InteractionEditor.scss';
 import { H5PContext } from '@context/H5PContext';
 import { getLibraryDataFromFields } from '@h5phelpers/editorForms';
-import { getDefaultLibraryParams } from '@h5phelpers/libraryParams';
 import {
   createInteractionForm,
   sanitizeInteractionParams,
   validateInteractionForm,
 } from '@h5phelpers/forms/interactionForm';
-import '@components/EditingDialog/InteractionEditor.scss';
+import { getDefaultLibraryParams } from '@h5phelpers/libraryParams';
+import PropTypes from 'prop-types';
+import React from 'react';
+import EditingDialog from './EditingDialog';
 
 export const InteractionEditingType = {
   NOT_EDITING: null,
@@ -35,49 +35,37 @@ export default class InteractionEditor extends React.Component {
     } else if (interactionIndex === InteractionEditingType.EDITING) {
       return this.props.hotspot;
     }
-    const scenes = this.context.params.scenes;
-    const scene = getSceneFromId(scenes, this.props.currentScene);
-    return scene.interactions[interactionIndex];
   }
 
   async componentDidMount() {
+    const { field, parent } = this.context;
+    if (!field || !parent) return; // Fail early if context is missing
+
     this.params = this.getInteractionParams(this.props.editingInteraction);
-    const field = this.context.field;
+    this.parentChildren = parent.children;
 
-    // Preserve parent's children
-    this.parentChildren = this.context.parent.children;
-    createInteractionForm(field, this.params, this.semanticsRef.current, this.context.parent);
+    // Create interaction form
+    createInteractionForm(field, this.params, this.semanticsRef.current, parent);
 
-    // Restore parent's children after preserving our own
-    this.children = this.context.parent.children;
-    this.context.parent.children = this.parentChildren;
+    // Restore parent's children and assign local reference
+    this.children = parent.children;
+    parent.children = this.parentChildren;
 
-    // Update state when library has loaded
-    this.libraryWidget = this.children[2];
-    const libraryLoadedCallback = () => {
-      this.setState({
-        isInitialized: true,
-      });
-    };
-
-    // Check if children has been loaded, since ready() doesn't work for library
-    if (this.libraryWidget.children && this.libraryWidget.children.length) {
-      libraryLoadedCallback();
+    // Ensure `libraryWidget` is valid before using it
+    this.libraryWidget = this.children?.[2];
+    if (this.libraryWidget?.children?.length) {
+      this.setState({ isInitialized: true });
     } else {
-      this.libraryWidget.change(libraryLoadedCallback.bind(this));
+      this.libraryWidget?.change(() => this.setState({ isInitialized: true }));
     }
 
-    let uberName = '';
-    if (this.props.hotspot) {
-      uberName = this.props.hotspot.action.library;
-    } else {
-      uberName = this.params.action.library;
-    }
+    // Determine `uberName` (shortened conditional)
+    const uberName = this.props.hotspot?.action?.library || this.params?.action?.library;
+    if (!uberName) return; // Fail early if no library name is found
 
+    // Load library data
     const library = await getLibraryDataFromFields(field, uberName);
-    this.setState({
-      library: library,
-    });
+    this.setState({ library });
   }
 
   handleDone() {

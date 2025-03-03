@@ -33,20 +33,24 @@ export default class Main extends React.Component {
     const modelViewer = document.getElementById(
       this.context.parent.params.subContentId || 'model-viewer'
     );
+    console.log(this.state.interactions);
 
     if (!modelViewer) {
       return;
     }
     modelViewer.autoRotate = false;
 
-    modelViewer.addEventListener('load', () => {
-      // create hotspots and set model viewer instance
+    const handleLoad = () => {
       this.setState({
-        interactions: this.context.params.interactions,
+        interactions: this.state.interactions,
         modelViewerInstance: modelViewer,
         animations: modelViewer.availableAnimations,
       });
-    });
+    };
+
+    modelViewer.addEventListener('load', handleLoad, { once: true });
+
+    this.setState({ modelViewerInstance: modelViewer });
   }
 
   componentWillUnmount() {
@@ -92,18 +96,9 @@ export default class Main extends React.Component {
       return;
     }
   };
-
   createInteraction(library) {
-    if (library === null) {
-      this.setState({
-        listeningForClicks: false,
-      });
-    } else {
-      this.setState({
-        listeningForClicks: true,
-      });
-    }
     this.setState({
+      listeningForClicks: library !== null,
       editingLibrary: library,
     });
   }

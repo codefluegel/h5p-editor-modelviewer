@@ -1,7 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import '@components/InteractionsBar/InteractionsBar.scss';
 import { getLibraries, H5PContext } from '@context/H5PContext';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 export default class InteractionsBar extends React.Component {
   constructor(props) {
@@ -27,15 +27,9 @@ export default class InteractionsBar extends React.Component {
     if (this.props.activeElement && library.name === this.props.activeElement) {
       this.props.createInteraction(null);
       this.props.onActiveElementChange(null);
-      // this.setState({
-      //   activeElement: null,
-      // });
     } else {
       this.props.createInteraction(library);
       this.props.onActiveElementChange(library.name);
-      // this.setState({
-      //   activeElement: library.name
-      // });
     }
   };
 
@@ -45,7 +39,7 @@ export default class InteractionsBar extends React.Component {
     }
 
     if (!this.state.isInitialized) {
-      return <div>{this.context.t('loading')}...</div>;
+      return <div>{this.context.t('loading')}</div>;
     }
 
     return (
@@ -53,7 +47,7 @@ export default class InteractionsBar extends React.Component {
         {this.state.libraries.map((library) => {
           let isActive = false;
 
-          if (this.props.activeElement && this.props.activeElement === library.name) {
+          if (this.props.activeElement === library.name) {
             isActive = true;
           }
           let className = library.name.toLowerCase().replace('.', '-');
