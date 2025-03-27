@@ -1,10 +1,12 @@
-// component to render hotspots from main a functional component
-import React, { useState } from 'react';
+import { H5PContext } from '@context/H5PContext.js';
+import React, { useContext, useState } from 'react';
+import './Toolbar.scss';
+import PropTypes from 'prop-types'; 
 
 const ToolBar = (props) => {
   const { animations, modelViewerInstance } = props;
+  const context = useContext(H5PContext);
 
-  // buttonstate
   const [buttonState, setButtonState] = useState(false);
 
   const handlePlayPause = () => {
@@ -22,9 +24,9 @@ const ToolBar = (props) => {
       <div>
         {animations.length > 0 && (
           <button
-            className='button'
+            className='toolbar-btn'
             onClick={handlePlayPause}
-            aria-label={buttonState ? 'Pause animation' : 'Play animation'}
+            aria-label={buttonState ? context.t('pauseAnimation') : context.t('playAnimation')}
             aria-pressed={buttonState}
             role='button'
           >
@@ -37,3 +39,13 @@ const ToolBar = (props) => {
 };
 
 export default ToolBar;
+
+ToolBar.propTypes = {
+  animations: PropTypes.arrayOf(PropTypes.string).isRequired, 
+  modelViewerInstance: PropTypes.shape({
+    availableAnimations: PropTypes.arrayOf(PropTypes.string).isRequired,
+    paused: PropTypes.bool.isRequired,
+    play: PropTypes.func.isRequired,
+    pause: PropTypes.func.isRequired,
+  }), 
+};
