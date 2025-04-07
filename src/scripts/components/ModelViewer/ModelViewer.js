@@ -1,10 +1,17 @@
 import '@components/ModelViewer/ModelViewer.scss';
+import { purifyHTML } from '@utils/utils';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { purifyHTML } from '../../utils/utils';
 
 const ModelViewer = (props) => {
-  const { handleClick, hotspots, modelPath, id, showContentModal, modelDescriptionARIA } = props;
+  const {
+    handleClick,
+    hotspots,
+    modelPath,
+    id,
+    showContentModal,
+    modelDescriptionARIA,
+  } = props;
 
   const openModalByType = (hotspot, index) => {
     showContentModal(hotspot, index);
@@ -24,7 +31,7 @@ const ModelViewer = (props) => {
         return (
           hotspot.interactionpos && (
             <div
-              className='hotspot'
+              className="hotspot"
               key={index}
               slot={`hotspot-${index}`}
               data-surface={hotspot.interactionpos}
@@ -37,7 +44,9 @@ const ModelViewer = (props) => {
                 onClick={() => openModalByType(hotspot, index)}
                 onKeyDown={(event) => handleKeyDown(event, hotspot, index)}
               />
-              <div className='hotspot-label'>{purifyHTML(hotspot.labelText)}</div>
+              <div className="hotspot-label">
+                {purifyHTML(hotspot.labelText)}
+              </div>
             </div>
           )
         );

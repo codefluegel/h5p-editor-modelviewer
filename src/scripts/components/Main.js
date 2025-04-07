@@ -3,14 +3,14 @@ import InteractionEditor, {
 } from '@components/EditingDialog/InteractionEditor.js';
 import InteractionsBar from '@components/InteractionsBar/InteractionsBar.js';
 import '@components/Main.scss';
-import ModelViewer from '@components/ModelViewer/ModelViewer';
-import ToolBar from '@components/Toolbar/Toolbar';
+import ModelViewer from '@components/ModelViewer/ModelViewer.js';
+import ToolBar from '@components/Toolbar/Toolbar.js';
 import { H5PContext } from '@context/H5PContext.js';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { getSource } from '../context/H5PContext';
+import { getSource } from '../context/H5PContext.js';
 
 export default class Main extends React.Component {
   constructor(props) {
@@ -202,11 +202,11 @@ export default class Main extends React.Component {
             {this.state.animations.length > 0 &&
               this.state.editingInteraction ===
                 InteractionEditingType.NOT_EDITING && (
-              <ToolBar
-                animations={this.state.animations}
-                modelViewerInstance={this.state.modelViewerInstance}
-              />
-            )}
+                <ToolBar
+                  animations={this.state.animations}
+                  modelViewerInstance={this.state.modelViewerInstance}
+                />
+              )}
           </div>
           {this.state.editingInteraction !==
             InteractionEditingType.NOT_EDITING && (

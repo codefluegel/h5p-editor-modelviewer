@@ -1,5 +1,5 @@
 import '@components/InteractionsBar/InteractionsBar.scss';
-import { getLibraries, H5PContext } from '@context/H5PContext';
+import { getLibraries, H5PContext } from '@context/H5PContext.js';
 import PropTypes from 'prop-types';
 import React from 'react';
 
@@ -27,8 +27,7 @@ export default class InteractionsBar extends React.Component {
     if (this.props.activeElement && library.name === this.props.activeElement) {
       this.props.createInteraction(null);
       this.props.onActiveElementChange(null);
-    } 
-    else {
+    } else {
       this.props.createInteraction(library);
       this.props.onActiveElementChange(library.name);
     }
@@ -44,7 +43,7 @@ export default class InteractionsBar extends React.Component {
     }
 
     return (
-      <div className='h5p-interactions-bar'>
+      <div className="h5p-interactions-bar">
         {this.state.libraries.map((library) => {
           let isActive = false;
 
@@ -60,7 +59,7 @@ export default class InteractionsBar extends React.Component {
               key={library.name}
               onClick={() => this.buttonClicked(library)}
             >
-              <div className='tooltip'>{library.title}</div>
+              <div className="tooltip">{library.title}</div>
             </button>
           );
         })}

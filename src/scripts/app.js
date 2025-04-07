@@ -1,8 +1,8 @@
-import Main from '@components/Main';
+import Main from '@components/Main.js';
 import { H5PContext } from '@context/H5PContext.js';
+import { purifyHTML } from '@utils/utils.js';
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import { purifyHTML } from './utils/utils';
 
 export default class ModelViewerWidget {
   constructor(parent, field, params, setValue) {

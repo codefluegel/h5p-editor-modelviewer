@@ -1,15 +1,15 @@
+import EditingDialog from '@components/EditingDialog/EditingDialog';
 import '@components/EditingDialog/InteractionEditor.scss';
 import { H5PContext } from '@context/H5PContext';
-import { getLibraryDataFromFields } from '@h5phelpers/editorForms';
+import { getLibraryDataFromFields } from '@h5phelpers/editorForms.js';
 import {
   createInteractionForm,
   sanitizeInteractionParams,
   validateInteractionForm,
 } from '@h5phelpers/forms/interactionForm';
-import { getDefaultLibraryParams } from '@h5phelpers/libraryParams';
+import { getDefaultLibraryParams } from '@h5phelpers/libraryParams.js';
 import PropTypes from 'prop-types';
 import React from 'react';
-import EditingDialog from './EditingDialog';
 
 export const InteractionEditingType = {
   NOT_EDITING: null,
@@ -32,8 +32,7 @@ export default class InteractionEditor extends React.Component {
   getInteractionParams(interactionIndex = null) {
     if (interactionIndex === InteractionEditingType.NEW_INTERACTION) {
       return getDefaultLibraryParams(this.props.library.uberName);
-    } 
-    else if (interactionIndex === InteractionEditingType.EDITING) {
+    } else if (interactionIndex === InteractionEditingType.EDITING) {
       return this.props.hotspot;
     }
   }
@@ -46,7 +45,12 @@ export default class InteractionEditor extends React.Component {
     this.parentChildren = parent.children;
 
     // Create interaction form
-    createInteractionForm(field, this.params, this.semanticsRef.current, parent);
+    createInteractionForm(
+      field,
+      this.params,
+      this.semanticsRef.current,
+      parent
+    );
 
     // Restore parent's children and assign local reference
     this.children = parent.children;
@@ -56,13 +60,13 @@ export default class InteractionEditor extends React.Component {
     this.libraryWidget = this.children?.[2];
     if (this.libraryWidget?.children?.length) {
       this.setState({ isInitialized: true });
-    } 
-    else {
+    } else {
       this.libraryWidget?.change(() => this.setState({ isInitialized: true }));
     }
 
     // Determine `uberName` (shortened conditional)
-    const uberName = this.props.hotspot?.action?.library || this.params?.action?.library;
+    const uberName =
+      this.props.hotspot?.action?.library || this.params?.action?.library;
     if (!uberName) return; // Fail early if no library name is found
 
     // Load library data
@@ -74,8 +78,7 @@ export default class InteractionEditor extends React.Component {
     let interactionPosition = null;
     if (this.props.hotspot) {
       interactionPosition = this.props.hotspot.interactionpos;
-    } 
-    else {
+    } else {
       interactionPosition = this.props.newInteractionPosition;
     }
     this.params = sanitizeInteractionParams(this.params, interactionPosition);

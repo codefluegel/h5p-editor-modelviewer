@@ -1,4 +1,4 @@
-import { getLibraries } from '../context/H5PContext';
+import { getLibraries } from '@context/H5PContext.js';
 
 /**
  * Get models field from Three Image semantics structure
