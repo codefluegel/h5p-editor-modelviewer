@@ -1,51 +1,46 @@
+import '@components/Toolbar/Toolbar.scss';
 import { H5PContext } from '@context/H5PContext.js';
+import PropTypes from 'prop-types';
 import React, { useContext, useState } from 'react';
-import './Toolbar.scss';
-import PropTypes from 'prop-types'; 
 
 const ToolBar = (props) => {
-  const { animations, modelViewerInstance } = props;
+  const { modelViewerInstance } = props;
+  // buttonstate
+  const [buttonState, setButtonState] = useState(false);
   const context = useContext(H5PContext);
 
-  const [buttonState, setButtonState] = useState(false);
+  const playLabel = context.t('playAnimation');
+  const pauseLabel = context.t('pauseAnimation');
 
   const handlePlayPause = () => {
     setButtonState(!buttonState);
 
-    if (!modelViewerInstance || !modelViewerInstance.availableAnimations.length) {
-      return;
+    if (modelViewerInstance) {
+      modelViewerInstance.availableAnimations.length && modelViewerInstance.paused
+        ? modelViewerInstance.play()
+        : modelViewerInstance.pause();
     }
-
-    modelViewerInstance.paused ? modelViewerInstance.play() : modelViewerInstance.pause();
   };
 
   return (
-    <div className='tool-bar'>
-      <div>
-        {animations.length > 0 && (
-          <button
-            className='toolbar-btn'
-            onClick={handlePlayPause}
-            aria-label={buttonState ? context.t('pauseAnimation') : context.t('playAnimation')}
-            aria-pressed={buttonState}
-            role='button'
-          >
-            {buttonState ? 'Pause' : 'Play'}
-          </button>
-        )}
-      </div>
-    </div>
+    <button
+      className='toolbar-btn'
+      aria-label={buttonState ? pauseLabel : playLabel}
+      onClick={handlePlayPause}
+    >
+      {buttonState ? pauseLabel : playLabel}
+    </button>
   );
 };
 
 export default ToolBar;
 
 ToolBar.propTypes = {
-  animations: PropTypes.arrayOf(PropTypes.string).isRequired, 
+  animations: PropTypes.arrayOf(PropTypes.string).isRequired,
   modelViewerInstance: PropTypes.shape({
     availableAnimations: PropTypes.arrayOf(PropTypes.string).isRequired,
     paused: PropTypes.bool.isRequired,
     play: PropTypes.func.isRequired,
     pause: PropTypes.func.isRequired,
-  }), 
+  }),
 };

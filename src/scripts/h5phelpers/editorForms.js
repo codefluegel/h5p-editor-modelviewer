@@ -1,7 +1,7 @@
 import { getLibraries } from '../context/H5PContext';
 
 /**
- * Get scenes field from Three Image semantics structure
+ * Get models field from Three Image semantics structure
  *
  * @param field
  * @returns {Object}
@@ -11,7 +11,7 @@ export const getModelField = (field) => {
 };
 
 /**
- * Get interactions field within a scene from the Three Image semantics
+ * Get interactions field within a model from the Three Image semantics
  * structure
  *
  * @param field
@@ -49,7 +49,7 @@ export const isChildrenValid = (children) => {
   // validate() should always run for all children because it adds
   // styling to children that fails to validate
   children.forEach((child) => {
-    // Special validation for scene image, since having a required image
+    // Special validation for model image, since having a required image
     // is not supported by core yet
     const isRequiredImage =
       child.field.type === 'image' &&
@@ -71,32 +71,3 @@ export const isChildrenValid = (children) => {
   return isInputsValid;
 };
 
-const addBehavioralChangeListeners = (parent, callback) => {
-  const behaviour = parent.children.find((child) => {
-    return child.field.name === 'behaviour';
-  });
-
-  const sceneRendering = behaviour.children.find((child) => {
-    return child.field.name === 'sceneRenderingQuality';
-  });
-
-  const label = behaviour.children.find((child) => {
-    return child.field.name === 'label';
-  });
-
-  for (let i = 0; i < label.children.length; i++) {
-    label.children[i].changes.push(callback);
-  }
-
-  sceneRendering.changes.push(callback);
-};
-
-export const addBehavioralListeners = (parent, callback) => {
-  if (parent.children.length === 0) {
-    parent.ready(() => {
-      addBehavioralChangeListeners(parent, callback);
-    });
-    return;
-  }
-  addBehavioralChangeListeners(parent, callback);
-};

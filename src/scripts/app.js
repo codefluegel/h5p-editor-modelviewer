@@ -2,6 +2,7 @@ import Main from '@components/Main';
 import { H5PContext } from '@context/H5PContext.js';
 import React from 'react';
 import { createRoot } from 'react-dom/client';
+import { purifyHTML } from './utils/utils';
 
 export default class ModelViewerWidget {
   constructor(parent, field, params, setValue) {
@@ -11,6 +12,7 @@ export default class ModelViewerWidget {
     this.params = Object.assign(
       {
         glbModel: customParams.glbModel || {},
+        modelDescriptionARIA: purifyHTML(customParams.modelDescriptionARIA) || '',
         interactions: [],
       },
       params || {}
@@ -61,6 +63,7 @@ export default class ModelViewerWidget {
         <Main
           initialModelPath={this.customParams.glbModel.path}
           paramInteractions={this.params.interactions}
+          modelDescriptionARIA={this.params.modelDescriptionARIA}
         />
       </H5PContext.Provider>
     );

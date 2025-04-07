@@ -129,19 +129,19 @@ InteractionEditor.contextType = H5PContext;
 
 InteractionEditor.propTypes = {
   library: PropTypes.shape({
-    uberName: PropTypes.string.isRequired, // Library name
+    uberName: PropTypes.string.isRequired,
   }),
   editingInteraction: PropTypes.oneOfType([
-    PropTypes.number, // Interaction index
-    PropTypes.oneOf(Object.values(InteractionEditingType)), // Interaction editing type
+    PropTypes.number,
+    PropTypes.oneOf(Object.values(InteractionEditingType)),
   ]),
-  doneAction: PropTypes.func.isRequired, // Function for completing the interaction
-  removeAction: PropTypes.func.isRequired, // Function for removing the interaction
+  doneAction: PropTypes.func.isRequired,
+  removeAction: PropTypes.func.isRequired,
   hotspot: PropTypes.shape({
-    interactionpos: PropTypes.string, // Position of the interaction
+    interactionpos: PropTypes.string,
     action: PropTypes.shape({
-      library: PropTypes.string.isRequired, // Library name of the action
+      library: PropTypes.string.isRequired,
     }),
-  }), // Hotspot object
-  newInteractionPosition: PropTypes.string, // Position for a new interaction
+  }),
+  newInteractionPosition: PropTypes.string,
 };

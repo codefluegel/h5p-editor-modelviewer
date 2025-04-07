@@ -174,7 +174,6 @@ export default class Main extends React.Component {
       editingHotspotIndex: index,
     });
   };
-
   render() {
     return (
       <div className='model-viewer-container'>
@@ -192,11 +191,15 @@ export default class Main extends React.Component {
               hotspots={this.state.interactions}
               modelPath={this.state.modelPath}
               showContentModal={this.showContentModal}
+              modelDescriptionARIA={this.props.modelDescriptionARIA}
             />
-            <ToolBar
-              animations={this.state.animations}
-              modelViewerInstance={this.state.modelViewerInstance}
-            />
+            {this.state.animations.length > 0 &&
+              this.state.editingInteraction === InteractionEditingType.NOT_EDITING && (
+                <ToolBar
+                  animations={this.state.animations}
+                  modelViewerInstance={this.state.modelViewerInstance}
+                />
+              )}
           </div>
           {this.state.editingInteraction !== InteractionEditingType.NOT_EDITING && (
             <InteractionEditor

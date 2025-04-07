@@ -11,9 +11,9 @@ export const getSource = (path) => {
 };
 
 export const getInteractionsField = (field) => {
-  const sceneFields = getModelField(field);
+  const modelFields = getModelField(field);
 
-  return H5PEditor.findSemanticsField('interactions', sceneFields);
+  return H5PEditor.findSemanticsField('interactions', modelFields);
 };
 
 export const getModelField = (field) => {
