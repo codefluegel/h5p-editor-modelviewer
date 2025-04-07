@@ -2,7 +2,6 @@ import { getLibraries } from '../context/H5PContext';
 
 /**
  * Get models field from Three Image semantics structure
- *
  * @param field
  * @returns {Object}
  */
@@ -25,7 +24,6 @@ export const getInteractionsField = (field) => {
 
 /**
  * Get library data for a single library
- *
  * @param field
  * @param library
  * @returns {Promise<*>}
@@ -39,7 +37,6 @@ export const getLibraryDataFromFields = async (field, library) => {
 
 /**
  * Checks if children are valid and sets error messages for invalid fields.
- *
  * @param children
  * @returns {boolean}
  */
@@ -70,4 +67,3 @@ export const isChildrenValid = (children) => {
 
   return isInputsValid;
 };
-

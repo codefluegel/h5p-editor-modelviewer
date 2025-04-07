@@ -27,7 +27,8 @@ export default class InteractionsBar extends React.Component {
     if (this.props.activeElement && library.name === this.props.activeElement) {
       this.props.createInteraction(null);
       this.props.onActiveElementChange(null);
-    } else {
+    } 
+    else {
       this.props.createInteraction(library);
       this.props.onActiveElementChange(library.name);
     }

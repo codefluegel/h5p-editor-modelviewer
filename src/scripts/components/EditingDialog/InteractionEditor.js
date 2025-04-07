@@ -32,7 +32,8 @@ export default class InteractionEditor extends React.Component {
   getInteractionParams(interactionIndex = null) {
     if (interactionIndex === InteractionEditingType.NEW_INTERACTION) {
       return getDefaultLibraryParams(this.props.library.uberName);
-    } else if (interactionIndex === InteractionEditingType.EDITING) {
+    } 
+    else if (interactionIndex === InteractionEditingType.EDITING) {
       return this.props.hotspot;
     }
   }
@@ -55,7 +56,8 @@ export default class InteractionEditor extends React.Component {
     this.libraryWidget = this.children?.[2];
     if (this.libraryWidget?.children?.length) {
       this.setState({ isInitialized: true });
-    } else {
+    } 
+    else {
       this.libraryWidget?.change(() => this.setState({ isInitialized: true }));
     }
 
@@ -72,7 +74,8 @@ export default class InteractionEditor extends React.Component {
     let interactionPosition = null;
     if (this.props.hotspot) {
       interactionPosition = this.props.hotspot.interactionpos;
-    } else {
+    } 
+    else {
       interactionPosition = this.props.newInteractionPosition;
     }
     this.params = sanitizeInteractionParams(this.params, interactionPosition);

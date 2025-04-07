@@ -12,7 +12,8 @@ export default class ModelViewerWidget {
     this.params = Object.assign(
       {
         glbModel: customParams.glbModel || {},
-        modelDescriptionARIA: purifyHTML(customParams.modelDescriptionARIA) || '',
+        modelDescriptionARIA:
+          purifyHTML(customParams.modelDescriptionARIA) || '',
         interactions: [],
       },
       params || {}
@@ -91,4 +92,5 @@ export default class ModelViewerWidget {
   validate = () => true;
 }
 
-H5PEditor.widgets.modelViewerWidget = H5PEditor.modelViewerWidget = ModelViewerWidget;
+H5PEditor.widgets.modelViewerWidget = H5PEditor.modelViewerWidget =
+  ModelViewerWidget;

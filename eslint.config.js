@@ -10,8 +10,8 @@ export default [
       react: pluginReact,
     },
     rules: {
-      'react/prop-types': 'warn', // If you want to add prop types
-      // Other rules that you want to set
+      'react/prop-types': 'warn',
+      'brace-style': ['off', '1tbs'],
     },
     settings: {
       react: {

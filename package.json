@@ -6,8 +6,15 @@
   "scripts": {
     "build": "webpack --mode=production",
     "watch": "webpack --mode=development --watch",
-    "lint": "eslint './src/**/*.js'"
+    "lint": "npx eslint \"./src/**/*.js\""
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/codefluegel/h5peditor-modelviewer.git"
+  },
+  "author": "CodeFluegel",
+  "license": "MIT",
+  "homepage": "https://github.com/codefluegel/h5p-modelviewer#readme",
   "devDependencies": {
     "@babel/cli": "7.27.0",
     "@babel/core": "^7.26.10",
@@ -21,10 +28,12 @@
     "eslint": "^9.24.0",
     "mini-css-extract-plugin": "^2.9.2",
     "sass": "^1.86.3",
+    "eslint-config-snordian-h5p": "github:otacke/eslint-config-snordian-h5p",
     "sass-loader": "^16.0.5",
     "webpack": "^5.98.0",
     "webpack-cli": "^5.1.4"
   },
+  "type": "module",
   "dependencies": {
     "@babel/plugin-transform-runtime": "^7.26.10",
     "eslint-plugin-react": "^7.37.5",
@@ -36,7 +45,5 @@
     "react-toastify": "^11.0.5"
   },
   "keywords": [],
-  "author": "CodeFluegel",
-  "license": "MIT",
   "browserslist": "> 0.5%, last 2 versions, Firefox ESR, not dead"
 }
