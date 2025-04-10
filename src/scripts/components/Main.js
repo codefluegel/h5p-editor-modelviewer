@@ -198,6 +198,7 @@ export default class Main extends React.Component {
               modelPath={this.state.modelPath}
               showContentModal={this.showContentModal}
               modelDescriptionARIA={this.props.modelDescriptionARIA}
+              modelViewerInstance={this.state.modelViewerInstance}
             />
             {this.state.animations.length > 0 &&
               this.state.editingInteraction ===

@@ -1,7 +1,8 @@
 import '@components/ModelViewer/ModelViewer.scss';
+import { H5PContext } from '@context/H5PContext.js';
 import { purifyHTML } from '@utils/utils';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useContext } from 'react';
 
 const ModelViewer = (props) => {
   const {
@@ -11,15 +12,26 @@ const ModelViewer = (props) => {
     id,
     showContentModal,
     modelDescriptionARIA,
+    modelViewerInstance,
   } = props;
 
   const openModalByType = (hotspot, index) => {
     showContentModal(hotspot, index);
   };
+  const context = useContext(H5PContext);
+
+  const handleExposureChange = (e) => {
+    const exposureValue = parseFloat(e.target.value);
+    if (modelViewerInstance) {
+      modelViewerInstance.exposure = exposureValue;
+      context.params.exposureValue = exposureValue;
+      context.setValue(context.field, context.params);
+    }
+  };
 
   return (
     <model-viewer
-      style={{ width: '100%', height: '100%' }}
+      class="modelViewer"
       id={id}
       onClick={handleClick}
       src={modelPath}
@@ -27,6 +39,24 @@ const ModelViewer = (props) => {
       alt={modelDescriptionARIA}
       camera-controls
     >
+      <input
+        type="range"
+        min="0.0"
+        max="2.0"
+        step="0.01"
+        defaultValue="1.0"
+        onChange={handleExposureChange}
+        style={{
+          position: 'absolute',
+          right: '10px',
+          top: '50%',
+          transform: 'translateY(-50%)',
+          writingMode: 'bt-lr',
+          WebkitAppearance: 'slider-vertical',
+          width: '30px',
+          height: '200px',
+        }}
+      />
       {hotspots.map((hotspot, index) => {
         return (
           hotspot.interactionpos && (
@@ -74,4 +104,5 @@ ModelViewer.propTypes = {
   id: PropTypes.string.isRequired,
   showContentModal: PropTypes.func.isRequired,
   modelDescriptionARIA: PropTypes.string.isRequired,
+  modelViewerInstance: PropTypes.any.isRequired,
 };
