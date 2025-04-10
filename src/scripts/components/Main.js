@@ -3,14 +3,14 @@ import InteractionEditor, {
 } from '@components/EditingDialog/InteractionEditor.js';
 import InteractionsBar from '@components/InteractionsBar/InteractionsBar.js';
 import '@components/Main.scss';
-import ModelViewer from '@components/ModelViewer/ModelViewer';
-import ToolBar from '@components/Toolbar/Toolbar';
+import ModelViewer from '@components/ModelViewer/ModelViewer.js';
+import ToolBar from '@components/Toolbar/Toolbar.js';
 import { H5PContext } from '@context/H5PContext.js';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { getSource } from '../context/H5PContext';
+import { getSource } from '../context/H5PContext.js';
 
 export default class Main extends React.Component {
   constructor(props) {
@@ -39,19 +39,28 @@ export default class Main extends React.Component {
     }
     modelViewer.autoRotate = false;
 
-    modelViewer.addEventListener('load', () => {
-      // create hotspots and set model viewer instance
+    const handleLoad = () => {
       this.setState({
         interactions: this.context.params.interactions,
         modelViewerInstance: modelViewer,
         animations: modelViewer.availableAnimations,
       });
-    });
+    };
+
+    modelViewer.addEventListener('load', handleLoad, { once: true });
+
+    this.setState({ modelViewerInstance: modelViewer });
   }
 
   componentWillUnmount() {
     // remove event listener
-    this.state.modelViewerInstance.removeEventListener('load');
+    this.state.modelViewerInstance.removeEventListener('load', () => {
+      this.setState({
+        interactions: [],
+        modelViewerInstance: null,
+        animations: [],
+      });
+    });
   }
 
   handleLibraryChange = (library) => {
@@ -92,24 +101,17 @@ export default class Main extends React.Component {
       return;
     }
   };
-
   createInteraction(library) {
-    if (library === null) {
-      this.setState({
-        listeningForClicks: false,
-      });
-    } else {
-      this.setState({
-        listeningForClicks: true,
-      });
-    }
     this.setState({
+      listeningForClicks: library !== null,
       editingLibrary: library,
     });
   }
 
   removeInteraction() {
-    if (this.state.editingInteraction === InteractionEditingType.NEW_INTERACTION) {
+    if (
+      this.state.editingInteraction === InteractionEditingType.NEW_INTERACTION
+    ) {
       this.setState({
         editingInteraction: InteractionEditingType.NOT_EDITING,
         editingHotspotIndex: -1,
@@ -136,7 +138,8 @@ export default class Main extends React.Component {
 
   editInteraction(params) {
     const newInteraction = params;
-    newInteraction.interactionpos = params.interactionpos ?? this.state.currentClickPosition;
+    newInteraction.interactionpos =
+      params.interactionpos ?? this.state.currentClickPosition;
 
     if (this.state.editingInteraction === InteractionEditingType.EDITING) {
       let interactions = [...this.state.interactions];
@@ -157,7 +160,10 @@ export default class Main extends React.Component {
       });
 
       // set context params hotspots to new hotspots array
-      this.context.params.interactions = [...this.state.interactions, newInteraction];
+      this.context.params.interactions = [
+        ...this.state.interactions,
+        newInteraction,
+      ];
       this.context.setValue(this.context.field, this.context.params);
 
       this.setState({
@@ -174,12 +180,11 @@ export default class Main extends React.Component {
       editingHotspotIndex: index,
     });
   };
-
   render() {
     return (
-      <div className='model-viewer-container'>
-        <div className='container'>
-          <div className='mv-container'>
+      <div className="model-viewer-container">
+        <div className="container">
+          <div className="mv-container">
             <InteractionsBar
               isShowing={true}
               createInteraction={this.createInteraction.bind(this)}
@@ -192,13 +197,19 @@ export default class Main extends React.Component {
               hotspots={this.state.interactions}
               modelPath={this.state.modelPath}
               showContentModal={this.showContentModal}
+              modelDescriptionARIA={this.props.modelDescriptionARIA}
             />
-            <ToolBar
-              animations={this.state.animations}
-              modelViewerInstance={this.state.modelViewerInstance}
-            />
+            {this.state.animations.length > 0 &&
+              this.state.editingInteraction ===
+                InteractionEditingType.NOT_EDITING && (
+                <ToolBar
+                  animations={this.state.animations}
+                  modelViewerInstance={this.state.modelViewerInstance}
+                />
+              )}
           </div>
-          {this.state.editingInteraction !== InteractionEditingType.NOT_EDITING && (
+          {this.state.editingInteraction !==
+            InteractionEditingType.NOT_EDITING && (
             <InteractionEditor
               removeAction={this.removeInteraction.bind(this)}
               doneAction={this.editInteraction.bind(this)}
@@ -209,7 +220,7 @@ export default class Main extends React.Component {
             />
           )}
           <ToastContainer
-            position='bottom-right'
+            position="bottom-right"
             autoClose={5000}
             hideProgressBar={false}
             newestOnTop={false}
@@ -226,4 +237,6 @@ Main.contextType = H5PContext;
 
 Main.propTypes = {
   modelPath: PropTypes.string,
+  initialModelPath: PropTypes.string.isRequired,
+  modelDescriptionARIA: PropTypes.string.isRequired,
 };

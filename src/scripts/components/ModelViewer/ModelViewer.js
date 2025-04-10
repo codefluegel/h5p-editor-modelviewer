@@ -1,8 +1,17 @@
-// component to render hotspots from main a functional component
+import '@components/ModelViewer/ModelViewer.scss';
+import { purifyHTML } from '@utils/utils';
+import PropTypes from 'prop-types';
 import React from 'react';
 
 const ModelViewer = (props) => {
-  const { handleClick, hotspots, modelPath, id, showContentModal } = props;
+  const {
+    handleClick,
+    hotspots,
+    modelPath,
+    id,
+    showContentModal,
+    modelDescriptionARIA,
+  } = props;
 
   const openModalByType = (hotspot, index) => {
     showContentModal(hotspot, index);
@@ -10,29 +19,34 @@ const ModelViewer = (props) => {
 
   return (
     <model-viewer
+      style={{ width: '100%', height: '100%' }}
       id={id}
       onClick={handleClick}
-      style={{ width: '100%', height: '100%' }}
       src={modelPath}
-      alt='A 3D model of an astronaut'
       auto-rotate
+      alt={modelDescriptionARIA}
       camera-controls
     >
       {hotspots.map((hotspot, index) => {
         return (
           hotspot.interactionpos && (
             <div
-              className={`hotspot h5p_${hotspot.action.metadata.contentType
-                .replace(/[ ,]+/g, '_')
-                .toLowerCase()}`}
+              className="hotspot"
               key={index}
               slot={`hotspot-${index}`}
               data-surface={hotspot.interactionpos}
-              onClick={() => openModalByType(hotspot, index)}
             >
-              <span className='hotspot-label' onClick={() => openModalByType(hotspot, index)}>
-                {`${index + 1}. ${hotspot.labelText}`}{' '}
-              </span>
+              <button
+                className={`hotspot h5p_${hotspot.action.metadata.contentType
+                  .replace(/[ ,]+/g, '_')
+                  .toLowerCase()}`}
+                aria-label={purifyHTML(hotspot.labelText)}
+                onClick={() => openModalByType(hotspot, index)}
+                onKeyDown={(event) => handleKeyDown(event, hotspot, index)}
+              />
+              <div className="hotspot-label">
+                {purifyHTML(hotspot.labelText)}
+              </div>
             </div>
           )
         );
@@ -42,3 +56,22 @@ const ModelViewer = (props) => {
 };
 
 export default ModelViewer;
+
+ModelViewer.propTypes = {
+  handleClick: PropTypes.func.isRequired,
+  hotspots: PropTypes.arrayOf(
+    PropTypes.shape({
+      interactionpos: PropTypes.string,
+      action: PropTypes.shape({
+        metadata: PropTypes.shape({
+          contentType: PropTypes.string.isRequired,
+        }).isRequired,
+      }).isRequired,
+      labelText: PropTypes.string,
+    })
+  ).isRequired,
+  modelPath: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
+  showContentModal: PropTypes.func.isRequired,
+  modelDescriptionARIA: PropTypes.string.isRequired,
+};

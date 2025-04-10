@@ -1,4 +1,5 @@
-@import "@styles/icons.scss";
+@use "../../../styles/icons" as *;
+@use "../../../styles/colors" as *;
 
 .h5p-interactions-bar {
   padding: 0.5em;
@@ -28,16 +29,16 @@
     border: 1px solid #ccc;
     border-radius: 0.25em;
     color: #333;
-    background: #f2f2f2;
-    background: -webkit-linear-gradient(top, #fff 0, #f2f2f2 100%);
-    background: -moz-linear-gradient(top, #fff 0, #f2f2f2 100%);
-    background: -ms-linear-gradient(top, #fff 0, #f2f2f2 100%);
-    background: -o-linear-gradient(top, #fff 0, #f2f2f2 100%);
+    background: $color-background-button;
+    background: -webkit-linear-gradient(top, #fff 0, $color-background-button 100%);
+    background: -moz-linear-gradient(top, #fff 0, $color-background-button 100%);
+    background: -ms-linear-gradient(top, #fff 0, $color-background-button 100%);
+    background: -o-linear-gradient(top, #fff 0, $color-background-button 100%);
 
     &:hover {
       border-color: #999999;
       transition: 0.1s;
-      background: #f2f2f2;
+      background: $color-background-button;
 
       .tooltip {
         display: block;

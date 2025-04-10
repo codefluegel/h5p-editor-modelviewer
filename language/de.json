@@ -10,7 +10,7 @@
     "delete": "Löschen",
     "or": "oder",
     "Model": "Model",
-    "loading": "Lade",
+    "loading": "Lade...",
     "newModel": "Neues Model",
     "currentModel": "Aktuelles Model",
     "createModelError": "Bitte erstelle ein neues Model zum Fortfahren",
@@ -22,6 +22,8 @@
     "deleteModelTitle": "Lösche Model",
     "deleteModelText": "Bist du sicher, dass du dieses Model löschen möchtest?",
     "deleteModelTextWithObjects": "Wenn dieses Model gelöscht wird, werden auch alle Interaktionen in dem Model gelöscht. Dasselbe gilt für Hotspots, die auf das Model zeigen. Bist du sicher, dass du dieses Model löschen möchtest?",
-    "clickModel": "Versuche das Modell zu treffen"
+    "clickModel": "Versuche das Modell zu treffen",
+    "pauseAnimation": "Pause animation",
+    "playAnimation": "Play animation"
   }
 }
