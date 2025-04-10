@@ -199,6 +199,7 @@ export default class Main extends React.Component {
               showContentModal={this.showContentModal}
               modelDescriptionARIA={this.props.modelDescriptionARIA}
               modelViewerInstance={this.state.modelViewerInstance}
+              exposureValue={this.props.exposureValue}
             />
             {this.state.animations.length > 0 &&
               this.state.editingInteraction ===
@@ -240,4 +241,5 @@ Main.propTypes = {
   modelPath: PropTypes.string,
   initialModelPath: PropTypes.string.isRequired,
   modelDescriptionARIA: PropTypes.string.isRequired,
+  exposureValue: PropTypes.number.isRequired,
 };

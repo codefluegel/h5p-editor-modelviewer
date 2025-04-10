@@ -13,6 +13,7 @@ const ModelViewer = (props) => {
     showContentModal,
     modelDescriptionARIA,
     modelViewerInstance,
+    exposureValue,
   } = props;
 
   const openModalByType = (hotspot, index) => {
@@ -21,10 +22,10 @@ const ModelViewer = (props) => {
   const context = useContext(H5PContext);
 
   const handleExposureChange = (e) => {
-    const exposureValue = parseFloat(e.target.value);
+    const exposure = parseFloat(e.target.value);
     if (modelViewerInstance) {
-      modelViewerInstance.exposure = exposureValue;
-      context.params.exposureValue = exposureValue;
+      modelViewerInstance.exposure = exposure;
+      context.params.exposureValue = exposure;
       context.setValue(context.field, context.params);
     }
   };
@@ -35,6 +36,7 @@ const ModelViewer = (props) => {
       id={id}
       onClick={handleClick}
       src={modelPath}
+      exposure={exposureValue ?? '1.0'}
       auto-rotate
       alt={modelDescriptionARIA}
       camera-controls
@@ -44,7 +46,7 @@ const ModelViewer = (props) => {
         min="0.0"
         max="2.0"
         step="0.01"
-        defaultValue="1.0"
+        defaultValue={exposureValue ?? '1.0'}
         onChange={handleExposureChange}
         style={{
           position: 'absolute',
@@ -56,6 +58,10 @@ const ModelViewer = (props) => {
           width: '30px',
           height: '200px',
         }}
+        aria-labelledby="exposure-label"
+        aria-valuemin="0.0"
+        aria-valuemax="2.0"
+        aria-valuenow="1.0"
       />
       {hotspots.map((hotspot, index) => {
         return (
