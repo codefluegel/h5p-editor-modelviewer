@@ -111,4 +111,5 @@ ModelViewer.propTypes = {
   showContentModal: PropTypes.func.isRequired,
   modelDescriptionARIA: PropTypes.string.isRequired,
   modelViewerInstance: PropTypes.any.isRequired,
+  exposureValue: PropTypes.number.isRequired,
 };

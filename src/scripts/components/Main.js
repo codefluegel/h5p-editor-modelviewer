@@ -204,11 +204,11 @@ export default class Main extends React.Component {
             {this.state.animations.length > 0 &&
               this.state.editingInteraction ===
                 InteractionEditingType.NOT_EDITING && (
-                <ToolBar
-                  animations={this.state.animations}
-                  modelViewerInstance={this.state.modelViewerInstance}
-                />
-              )}
+              <ToolBar
+                animations={this.state.animations}
+                modelViewerInstance={this.state.modelViewerInstance}
+              />
+            )}
           </div>
           {this.state.editingInteraction !==
             InteractionEditingType.NOT_EDITING && (
