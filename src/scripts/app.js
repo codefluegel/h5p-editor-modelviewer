@@ -15,6 +15,7 @@ export default class ModelViewerWidget {
         modelDescriptionARIA:
           purifyHTML(customParams.modelDescriptionARIA) || '',
         interactions: [],
+        exposureValue: customParams.modelViewerWidget.exposureValue,
       },
       params || {}
     );
@@ -65,6 +66,7 @@ export default class ModelViewerWidget {
           initialModelPath={this.customParams.glbModel.path}
           paramInteractions={this.params.interactions}
           modelDescriptionARIA={this.params.modelDescriptionARIA}
+          exposureValue={this.params.exposureValue}
         />
       </H5PContext.Provider>
     );
