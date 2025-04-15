@@ -26,11 +26,9 @@ const ModelViewer = (props) => {
 
   useEffect(() => {
     if (!window.modelViewerLoaded) {
-      if (!customElements.get('model-viewer')) {
-        import('@google/model-viewer').then(() => {
-          window.modelViewerLoaded = true;
-        });
-      }
+      import(/* webpackMode: "eager" */ '@google/model-viewer').then(() => {
+        window.modelViewerLoaded = true;
+      });
     }
   }, []);
 
