@@ -15,7 +15,7 @@ export default class ModelViewerWidget {
         modelDescriptionARIA:
           purifyHTML(customParams.modelDescriptionARIA) || '',
         interactions: [],
-        exposureValue: customParams.modelViewerWidget.exposureValue,
+        exposureValue: customParams.modelViewerWidget?.exposureValue,
       },
       params || {}
     );

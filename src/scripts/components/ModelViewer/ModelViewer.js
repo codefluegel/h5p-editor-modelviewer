@@ -2,7 +2,10 @@ import '@components/ModelViewer/ModelViewer.scss';
 import { H5PContext } from '@context/H5PContext.js';
 import { purifyHTML } from '@utils/utils';
 import PropTypes from 'prop-types';
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
+
+/** @constant {number} FILE_PATH_TIMEOUT_MS File path setting timeout. */
+const FILE_PATH_TIMEOUT_MS = 500;
 
 const ModelViewer = (props) => {
   const {
@@ -20,6 +23,16 @@ const ModelViewer = (props) => {
     showContentModal(hotspot, index);
   };
   const context = useContext(H5PContext);
+
+  useEffect(() => {
+    if (!window.modelViewerLoaded) {
+      if (!customElements.get('model-viewer')) {
+        import('@google/model-viewer').then(() => {
+          window.modelViewerLoaded = true;
+        });
+      }
+    }
+  }, []);
 
   const handleExposureChange = (e) => {
     const exposure = parseFloat(e.target.value);
